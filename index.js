@@ -148,6 +148,16 @@ class Instructor extends Lambdasian {
   grade(student, subject){
     return `${student.name} receives a perfect score on ${subject}`;
   }
+  changeGrade(studentObj, newGrade){
+    let chooser = Math.random();
+    if (chooser > 0.5){
+      studentObj.grade += newGrade;
+    }
+    else{
+      studentObj.grade -= newGrade;
+    }
+    return `${this.name} changed ${studentObj.name}'s grade to ${studentObj.grade}.`;
+  }
 }
 
 /*
@@ -171,6 +181,7 @@ class Student extends Lambdasian{
     this.previousBackground = obj.previousBackground;
     this.className = obj.className;
     this.favSubjects = obj.favSubjects;
+    this.grade = obj.grade;
   }
   listSubjects(){
     let str = "Loving ";
@@ -187,6 +198,14 @@ class Student extends Lambdasian{
   sprintChallenge(subject){
     return `${this.name} has begun sprint challenge on ${subject}`;
   }
+  graduate(){
+    if(this.grade >= 70){
+      return `${this.name} is on pace to graduate!`;
+    }
+    else{
+      return `Keep studying ${this.name}!`
+    }
+  }
 }
 
 let mike = new Student({
@@ -195,9 +214,23 @@ let mike = new Student({
   location: "Chicago",
   previousBackgroud: "Physics Degree",
   className: "Web 37",
-  favSubjects: ["HTML", "CSS", "JS"]
+  favSubjects: ["HTML", "CSS", "JS"],
+  grade: 95
 });
-console.log(mike.listSubjects())
+let Dave = new Instructor({
+  name: "Dave",
+  age: 35,
+  location: "Somewhere",
+  specialty: "Programming",
+  favLanguage: "English",
+  catchPhrase: "Git er done!"
+});
+console.log(mike);
+console.log(Dave.changeGrade(mike, 5));
+console.log(mike);
+console.log(mike.graduate());
+
+
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
