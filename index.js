@@ -135,8 +135,19 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(objInst){
+    super(objInst);
+    this.specialty = objInst.specialty;
+    this.favLanguage = objInst.favLanguage;
+    this.catchPhrase = objInst.catchPhrase;
+  }
+  demo(subject){
+    return `Today we are learning about ${subject}`;
+  }
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`;
+  }
 }
 
 /*
@@ -154,10 +165,39 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-
+class Student extends Lambdasian{
+  constructor(obj){
+    super(obj);
+    this.previousBackground = obj.previousBackground;
+    this.className = obj.className;
+    this.favSubjects = obj.favSubjects;
+  }
+  listSubjects(){
+    let str = "Loving ";
+    for (let i in this.favSubjects){
+      // @ts-ignore
+      str = str.concat(this.favSubjects[i] + `${(i < ((this.favSubjects.length)-1)) ? ", " : ""}`);
+    }
+    str = str.concat("!");
+    return str;
+  }
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
 }
 
+let mike = new Student({
+  name: "Mike",
+  age: 25,
+  location: "Chicago",
+  previousBackgroud: "Physics Degree",
+  className: "Web 37",
+  favSubjects: ["HTML", "CSS", "JS"]
+});
+console.log(mike.listSubjects())
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
